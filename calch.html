@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+                
+</head>
+<body>
+<audio src="click.mp3"  id="ado" style="position:absolute;" ></audio>
+<div class="cl" >
+<span class="sp" >0</span>
+<div class="display" id="display" >
+
+</div>
+<div class="btnc" ></div>
+
+</div>
+
+</body>
+<style type="text/css">
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+body{
+user-select:none;
+}
+.cl{
+
+width:98%;height:auto;
+box-shadow:0px 4px 15px gray;
+border-radius:8px;
+padding:28px 8px 8px 8px;
+margin:50px 3px 3px 3px;
+background:linear-gradient(orange,navy);
+}
+.display{
+width:100%;
+height:65px;
+padding:4px 6px 4px 6px;
+font-family: 'Calculator';
+text-shadow:.2px .2px black;
+border-radius:3px;
+background:rgb(200,205,225);
+margin-top:14px;
+margin-bottom:16px;
+overflow:hidden;
+animation:ds 0s linear infinite;
+font-size:25px;
+display:flex;
+align-items:center;
+}
+.btns{border:1px solid black;
+min-width:100px;
+padding:30px;
+margin: 4.4px 5px 4.4px 5px;
+border-radius:6px;
+box-shadow:0px 0px 4px black;
+background:black;
+color:#fff;
+font-size:16px;
+}
+.btns:active{
+opacity:.3;
+box-shadow:none;
+transition:.1s;
+color:green;
+}
+.btnc{
+width:100%;
+height:auto; 
+display:flex;
+justify-content:center;
+flex-wrap:wrap; 
+
+}
+.bt{min-width:10px;padding:17.5px;}
+@keyframes ds{
+50%{color:red;text-shadow:1.5px 1.5px 2px red;}
+
+}
+.sp{position:absolute;
+text-shadow:.2px .2px black;
+font-size:25px;
+margin-top:29.5px;
+
+margin-left:5.9px;
+}
+</style>
+<script type="text/javascript">
+let ado=document.getElementById("ado")
+function adoo(){
+ado.play()
+}
+let btnc=document.querySelector(".btnc")
+let inner=[
+{btn:"c",
+//onc:"p=''; document.querySelector('.display').textContent=p;display.style.animation='ds 0s linear infinite'",
+onc:"cl()"
+},
+{btn:"dl",
+
+onc:"dlast()",
+},
+{btn:1,
+
+onc:"ap(1)"
+},
+{btn:2,
+onc:"ap(2)"
+},
+{btn:3,
+
+onc:"ap(3)"
+},
+{btn:4,
+onc:"ap(4)"
+},
+{btn:5,
+
+onc:"ap(5)"
+},
+{btn:6,
+onc:"ap(6)"
+
+},
+{btn:7,
+onc:"ap(7)"
+
+},
+{btn:8,
+
+onc:"ap(8)"
+},
+{btn:9,
+
+onc:"ap(9)"
+
+},
+{btn:0,
+onc:"ap(0)"
+
+},
+{btn:"+",
+onc:"ap('+')"
+},
+{btn:"-",
+onc:"ap('-')",
+cl:"bt"
+},
+{btn:"/",
+
+onc:"ap('/')",cl:"bt"
+},
+{btn:"*",cl:"bt",
+onc:"ap('*')"
+},
+{btn:"=",cl:"bt",
+
+onc:"clr()"
+},
+
+]
+let  h=""
+inner.map((btn) =>  h+=`<button class="btns ${btn.cl}" onclick="${btn.onc}; les(); adoo()">${btn.btn}</button>`
+)
+btnc.innerHTML=h
+
+let displ=document.querySelector(".display")
+
+
+
+function les(){
+let display=document.querySelector(".display").innerText;
+
+if(display.length>20){
+alert('the maximam length is full')
+displ.style.animation="ds .3s linear infinite"
+
+document.querySelector(".display").innerText=display.slice(0,-1)
+
+}
+else{
+displ.style.animation="ds 0s linear infinite"
+
+}
+
+}
+
+function dlast(char){
+
+let display =document.getElementById("display").innerText;
+if(display.length === 1){
+document.querySelector(".display").innerText=''
+let sp=document.querySelector(".sp")
+sp.style.display="block"
+}
+else{
+
+document.querySelector(".display").innerText=display.slice(0,-1)
+
+}
+
+
+}
+function cl(){
+document.getElementById("display").innerText=``;
+let sp=document.querySelector(".sp")
+sp.style.display="block"
+}
+function ap(char){
+let displ=document.querySelector(".display")
+displ.style.animation="ds 0s linear infinite"
+let display = document.getElementById("display").innerText;
+
+let sp=document.querySelector(".sp")
+sp.style.display="none"
+
+if(display.length === '0'){
+
+document.getElementById("display").innerText=char
+}
+else{
+
+document.getElementById("display").innerText+=char
+}
+
+}
+function clr(){
+let display=document.querySelector(".display").innerText;
+try{
+let result=eval(display)
+document.querySelector(".display").innerText=result
+}catch{
+document.querySelector(".display").innerText=" "
+}
+
+}
+</script>
+</html>  
